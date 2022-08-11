@@ -16,7 +16,7 @@ dotenv.config({path: './config/config.env'})
 
 
 //Mount routers
-app.use('api/v1/bootcamps', router)
+app.use('/api/v1/bootcamps', router)
 
 
 app.get('/test', (req, res) => {
