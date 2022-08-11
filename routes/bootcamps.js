@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-
-
 router.get('/', (req, res) => {
+    res.json({response:'Hello World!'})
+  })
+
+router.get('/1', (req, res) => {
     res.status(200).json({success: true, msg: 'Show all bootcamps'})
 })
 
