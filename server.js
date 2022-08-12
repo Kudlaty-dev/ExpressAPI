@@ -2,8 +2,14 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const router = require("./routes/bootcamps");
-const secondrouter = require("./routes/router");
+//const secondrouter = require("./routes/router");
 app.use(express.json());
+const morgan = require("morgan");
+
+//Dev logging middleware
+//if (process.env.NODE_ENV === "development") {
+app.use(morgan("dev"));
+//}
 
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
