@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const router = require("./routes/bootcamps");
 const colors = require("colors");
+const errorHandler = require("./middleware/error");
 //const secondrouter = require("./routes/router");
 app.use(express.json());
 const morgan = require("morgan");
@@ -22,6 +23,7 @@ connectDB();
 app.use("/api/v1/bootcamps", router);
 //app.use("/check/test", router);
 //app.use("/tests", secondrouter);
+app.use(errorHandler);
 
 app.get("/test", (req, res) => {
   res.status(200).json({ success: true, msg: "Udalo sie" });
