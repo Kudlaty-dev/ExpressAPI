@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const router = require("./routes/bootcamps");
 const colors = require("colors");
 const errorHandler = require("./middleware/error");
+
 //const secondrouter = require("./routes/router");
 app.use(express.json());
 const morgan = require("morgan");
