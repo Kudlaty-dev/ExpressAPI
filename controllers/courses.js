@@ -100,6 +100,6 @@ exports.deleteCourse = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`No course with the id of ${req.params.id}`.blue, 404)
     );
   }
-  course.remove();
+  await course.remove();
   res.status(200).json({ success: true, data: course });
 });

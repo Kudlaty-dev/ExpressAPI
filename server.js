@@ -47,3 +47,9 @@ process.on("unhandledRejection", (err, promise) => {
   //Close Server & exit process
   server.close(() => process.exit(1));
 });
+
+/*
+//Routemap display
+displayRoutes = require("express-routemap");
+displayRoutes(app);
+*/
