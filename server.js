@@ -1,8 +1,10 @@
+const path = require("path");
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
+const fileupload = require("express-fileupload");
 const colors = require("colors");
 const errorHandler = require("./middleware/error");
 
@@ -10,6 +12,7 @@ const errorHandler = require("./middleware/error");
 app.use(express.json());
 const morgan = require("morgan");
 const connectDB = require("./config/db");
+const { setUncaughtExceptionCaptureCallback } = require("process");
 
 //Dev logging middleware
 //if (process.env.NODE_ENV === "development") {
@@ -20,6 +23,14 @@ app.use(morgan("dev"));
 dotenv.config({ path: "./config/config.env" });
 
 connectDB();
+
+//File uploading
+app.use(fileupload());
+
+//Set static folder
+//Static public directory
+
+app.use(express.static(path.join(__dirname, "public")));
 
 //Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
