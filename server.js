@@ -66,6 +66,6 @@ process.on("unhandledRejection", (err, promise) => {
   server.close(() => process.exit(1));
 });
 
-//Routemap display
-displayRoutes = require("express-routemap");
-displayRoutes(app);
+// //Routemap display
+// displayRoutes = require("express-routemap");
+// displayRoutes(app);

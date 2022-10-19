@@ -65,6 +65,45 @@ exports.getMe = asyncHandler(async (req, res, next) => {
   });
 });
 
+//@desc     Update user details
+//@route    PUT /api/v1/auth/updatedetails
+//@access   Private
+
+exports.updateDetails = asyncHandler(async (req, res, next) => {
+  const fieldsToUpdate = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+});
+
+//@desc     Update user password
+//@route    PUT /api/v1/auth/updatepassword
+//@access   Private
+
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+
+  //Check current password
+  if (!(await user.matchPassword(req.body.currentPassword))) {
+    return next(new ErrorResponse("Password is incorrect", 401));
+  }
+
+  user.password = req.body.newPassword;
+  await user.save();
+
+  sendTokenResponse(user, 200, res);
+});
+
 //@desc     Forgot password
 //@route    POST /api/v1/auth/forgotpassword
 //@access   Public
@@ -164,20 +203,4 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   await user.save();
 
   sendTokenResponse(user, 200, res);
-});
-
-//forgot
-//@desc     Get single bootcamp
-//@route    GET /api/v1/bootcamps/:id
-//@access   Public
-exports.forgot = asyncHandler(async (req, res, next) => {
-  console.log("forgot");
-  const bootcamp = await Bootcamp.findById(req.params.id);
-
-  if (!bootcamp) {
-    return next(
-      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
-    );
-  }
-  res.status(200).json({ success: true, data: bootcamp });
 });
