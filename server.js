@@ -11,6 +11,7 @@ const reviews = require("./routes/reviews");
 
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
+const mongoSanitize = require("express-mongo-sanitize");
 const colors = require("colors");
 const errorHandler = require("./middleware/error");
 
@@ -35,6 +36,9 @@ connectDB();
 
 //File uploading
 app.use(fileupload());
+
+// Mongo sanitize
+app.use(mongoSanitize);
 
 //Set static folder
 //Static public directory
