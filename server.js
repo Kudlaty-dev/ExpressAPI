@@ -12,6 +12,8 @@ const reviews = require("./routes/reviews");
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+const xssClean = require("xss-clean");
 const colors = require("colors");
 const errorHandler = require("./middleware/error");
 
@@ -37,8 +39,14 @@ connectDB();
 //File uploading
 app.use(fileupload());
 
-// Mongo sanitize
-app.use(mongoSanitize);
+// Sanitize data
+app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+// Prevent XSS attacks
+app.use(xssClean());
 
 //Set static folder
 //Static public directory
