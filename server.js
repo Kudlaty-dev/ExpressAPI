@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
-
+// Bring in routers
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
 const auth = require("./routes/auth");
